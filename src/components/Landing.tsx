@@ -52,7 +52,7 @@ function Landing() {
         </div>
       </div>
 
-      <div className="h-full lg:h-screen md:h-screen flex flex-col md:flex-row lg:flex-row bg-cyan-600 rounded-tr-3xl rounded-bl-3xl p-5"></div>
+      <div className="h-full lg:h-screen md:h-screen flex flex-col md:flex-row lg:flex-row bg-cyan-600 rounded-tr-[20%] rounded-bl-[20%] p-5"></div>
     </>
   );
 }
