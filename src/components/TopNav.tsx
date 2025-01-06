@@ -1,7 +1,7 @@
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function TopNav() {
   const [isOpen, setIsOpen] = useState(false);
