@@ -6,16 +6,16 @@ function TopNav() {
   return (
     <>
       <div className="h-14 px-10 flex flex-row">
-        <div className="basis-1/4 flex items-center pt-3">
+        <div className="flex-none flex items-center pt-3">
           <h1 className="text-xl text-white font-bold px-3 py-2 rounded-md bg-cyan-700 drop-shadow-md">
             JL
           </h1>
 
-          <h1 className="text-white text-opacity-80 text-lg font-bold pl-3">
+          <h1 className="text-white text-opacity-80 text-xl font-bold pl-3">
             Julio Lopez
           </h1>
         </div>
-        <div className="basis-1/2">
+        <div className="flex-1 hidden sm:block">
           <ul className="h-full flex flex-row items-center justify-center text-white text-opacity-70">
             <li>
               <a
@@ -42,7 +42,7 @@ function TopNav() {
             </li>
           </ul>
         </div>
-        <div className="basis-1/4 flex flex-row items-center justify-end">
+        <div className="flex-none sm:flex-1 flex flex-row items-center justify-end">
           <a href="#" className="p-3">
             <FaFacebook className="text-white text-opacity-75" />
           </a>
