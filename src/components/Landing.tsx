@@ -1,7 +1,7 @@
 import FrontImage from "../assets/imgs/front-blob.png";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Html, useGLTF, useProgress } from "@react-three/drei";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import * as THREE from "three";
 
 function Landing() {
