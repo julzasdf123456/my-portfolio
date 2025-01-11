@@ -1,5 +1,5 @@
 import FrontImage from "../assets/imgs/front-blob.png";
-import EducationImage from "../assets/imgs/Education.png";
+import EducationImage from "../assets/imgs/education.png";
 import Tooltip from "./Tooltip";
 
 import c from "../assets/logos/lang/c.png";
