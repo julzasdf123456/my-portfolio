@@ -1,4 +1,6 @@
 import FrontImage from "../assets/imgs/front-blob.png";
+import EducationImage from "../assets/imgs/Education.png";
+import Tooltip from "./Tooltip";
 
 import c from "../assets/logos/lang/c.png";
 import csharp from "../assets/logos/lang/csharp.png";
@@ -269,12 +271,18 @@ function Landing() {
 
             <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
               {languages.map((icon) => (
-                <img
-                  src={icon.logo}
-                  alt={icon.name}
-                  className={icon.cssClass}
-                  title={icon.name}
-                />
+                <Tooltip
+                  text={icon.name}
+                  shouldShow={true}
+                  otherClass="text-white font-bold"
+                >
+                  <img
+                    src={icon.logo}
+                    alt={icon.name}
+                    className={icon.cssClass}
+                    title={icon.name}
+                  />
+                </Tooltip>
               ))}
             </div>
           </div>
@@ -287,12 +295,18 @@ function Landing() {
 
             <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
               {frameworks.map((icon) => (
-                <img
-                  src={icon.logo}
-                  alt={icon.name}
-                  className={icon.cssClass}
-                  title={icon.name}
-                />
+                <Tooltip
+                  text={icon.name}
+                  shouldShow={true}
+                  otherClass="text-white font-bold"
+                >
+                  <img
+                    src={icon.logo}
+                    alt={icon.name}
+                    className={icon.cssClass}
+                    title={icon.name}
+                  />
+                </Tooltip>
               ))}
             </div>
           </div>
@@ -307,12 +321,18 @@ function Landing() {
 
             <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
               {dbs.map((icon) => (
-                <img
-                  src={icon.logo}
-                  alt={icon.name}
-                  className={icon.cssClass}
-                  title={icon.name}
-                />
+                <Tooltip
+                  text={icon.name}
+                  shouldShow={true}
+                  otherClass="text-white font-bold"
+                >
+                  <img
+                    src={icon.logo}
+                    alt={icon.name}
+                    className={icon.cssClass}
+                    title={icon.name}
+                  />
+                </Tooltip>
               ))}
             </div>
           </div>
@@ -321,7 +341,52 @@ function Landing() {
 
       {/* INSTITUTIONAL BACKGROUND */}
 
-      {/* <div className="flex flex-col w-full justify-center h-full md:h-full lg:min-h-screen lg:min-h-[500px] md:min-h-[100px] min-h-[700px] py-10 px-10"></div> */}
+      <div className="h-full lg:h-screen lg:min-h-[700px] md:h-screen md:min-h-[740px] flex flex-col md:flex-row lg:flex-row">
+        <div className="flex-1 h-full px-10 md:px-5 lg:px-12 py-4">
+          <div className="flex h-full flex-col justify-center">
+            <h1 className="text-l lg:text-2xl md:text-2xl font-bold text-white pt-5">
+              I'm a graduate of
+            </h1>
+            <h1 className="text-4xl lg:text-7xl md:text-6xl font-bold text-white pt-3">
+              <span className="text-cyan-300">Bachelor of Science in</span>
+            </h1>
+            <h1 className="text-5xl lg:text-7xl md:text-6xl font-bold text-white">
+              Information Technology
+            </h1>
+
+            <p className="pt-4 text-white text-opacity-75">
+              Started my college degree at Mater Dei College, Tubigon, Bohol, in
+              June of 2013. In my college days, I have already started my
+              software development career through freelancing. With both local
+              and international clients and employers, I have honed my coding
+              skills at an early age.
+            </p>
+            <p className="pt-3 text-white text-opacity-75">
+              I graduated in the same school in March 2017 with a
+              <strong> "Best in Computer Programming"</strong> award.
+            </p>
+
+            {/* <div className="flex flex-row pt-5">
+              <a
+                className="bg-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-700"
+                href="#"
+              >
+                Hire Me
+              </a>
+              <a
+                className="ml-3 border-2 border-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-600"
+                href="#"
+              >
+                Dowload CV
+              </a>
+            </div> */}
+          </div>
+        </div>
+
+        <div className="flex-none flex items-center w-screen md:w-6/12 lg:w-5/12 px-2 md:px-5 lg:px-12">
+          <img src={EducationImage} alt="" className="w-screen" />
+        </div>
+      </div>
 
       {/* VFX */}
       <div className="flex items-center justify-center">
