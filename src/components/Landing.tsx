@@ -5,6 +5,8 @@ import { useSpring, animated } from "@react-spring/web";
 import { useInView } from "react-intersection-observer";
 
 import cv from "../assets/others/cv.pdf";
+
+import TopNav from "./TopNav";
 // import { useFrame } from "@react-three/fiber";
 // import { useGLTF } from "@react-three/drei";
 // import React, { useRef } from "react";
@@ -68,7 +70,7 @@ function Landing() {
 
   const [inViewRef, inView] = useInView({
     triggerOnce: true, // Trigger the animation once when the element enters view
-    threshold: 0.1, // Start triggering the animation when 30% of the element is in view
+    threshold: 0, // Start triggering the animation when 30% of the element is in view
   });
 
   // setup animation on load
@@ -133,6 +135,7 @@ function Landing() {
 
   return (
     <>
+      <TopNav />
       {/* TOP */}
       <div className="h-full lg:h-screen lg:min-h-[700px] md:h-screen md:min-h-[740px] flex flex-col md:flex-row lg:flex-row">
         <div className="flex-none flex items-center w-screen md:w-6/12 lg:w-5/12 px-2 md:px-5 lg:px-12">
@@ -200,11 +203,8 @@ function Landing() {
       {/* INSTITUTIONAL BACKGROUND */}
 
       <div className="h-full lg:h-screen lg:min-h-[700px] md:h-screen md:min-h-[740px] flex flex-col md:flex-row lg:flex-row">
-        <div
-          ref={inViewRef}
-          className="flex-1 h-full px-10 md:px-5 lg:px-12 py-4"
-        >
-          <div className="flex h-full flex-col justify-center">
+        <div className="flex-1 h-full px-10 md:px-5 lg:px-12 py-4">
+          <div ref={inViewRef} className="flex h-full flex-col justify-center">
             <animated.div style={propsFromTop}>
               <h1 className="text-l lg:text-2xl md:text-2xl font-bold text-white pt-5">
                 I'm a graduate of

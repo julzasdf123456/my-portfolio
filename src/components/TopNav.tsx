@@ -2,6 +2,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function TopNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,8 @@ function TopNav() {
   const closeDrawer = () => {
     setIsOpen(false);
   };
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <>
@@ -85,17 +88,28 @@ function TopNav() {
         <div className="flex-none lg:flex-1 px-5 hidden md:block invisible md:visible lg:visible">
           <ul className="h-full flex flex-nowrap flex-row items-center justify-center text-white text-opacity-70">
             <li>
-              <a
-                className="p-4 border-b-2 border-white border-opacity-70"
-                href="#"
+              <Link
+                to="/"
+                className={`p-4 ${
+                  isActive("/")
+                    ? "border-b-2 border-white border-opacity-70"
+                    : ""
+                }`}
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="p-4" href="#">
-                Software Development
-              </a>
+              <Link
+                to="/software-development"
+                className={`p-4 ${
+                  isActive("/software-development")
+                    ? "border-b-2 border-white border-opacity-70"
+                    : ""
+                }`}
+              >
+                Software Projects
+              </Link>
             </li>
             <li>
               <a className="p-4" href="#">
