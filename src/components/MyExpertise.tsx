@@ -48,6 +48,9 @@ import llama from "../assets/logos/automations/llama.png";
 import tensorflow from "../assets/logos/automations/tensorflow.png";
 import opencv from "../assets/logos/automations/opencv.png";
 
+import { useSpring, animated } from "@react-spring/web";
+import { useInView } from "react-intersection-observer";
+
 function MyExpertise() {
   const languages = [
     {
@@ -308,7 +311,7 @@ function MyExpertise() {
     {
       name: "Llama 3 by Meta",
       logo: llama,
-      cssClass: "lg:h-[50px] md:h-[40px] h-[35px]",
+      cssClass: "lg:h-[70px] md:h-[50px] h-[45px]",
       description: "1 year of experience",
     },
     {
@@ -325,10 +328,49 @@ function MyExpertise() {
     },
   ];
 
+  const [inViewRef, inView] = useInView({
+    triggerOnce: true, // Trigger the animation once when the element enters view
+    threshold: 0, // Start triggering the animation when 30% of the element is in view
+  });
+
+  // Define the animation
+  const propsFromTop = useSpring({
+    opacity: inView ? 1 : 0, // Fade in when in view
+    transform: inView ? "translateY(0) scale(1)" : "translateY(-60px) scale(1)", // Starting from the top (translateY is negative)
+    config: { tension: 180, friction: 50 },
+  });
+
+  const propsFromRightSide = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView
+      ? "translateX(0) scale(1)"
+      : "translateX(60px) scale(0.95)", // Starting from the top (translateY is negative)
+    config: { tension: 200, friction: 80 }, // tweak for smoothness
+  });
+
+  const propsFromLeftSide = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView
+      ? "translateX(0) scale(1)"
+      : "translateX(-60px) scale(0.95)", // Starting from the top (translateY is negative)
+    config: { tension: 200, friction: 80 },
+  });
+
+  const propsFromBottom = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView
+      ? "translateY(0) scale(1)"
+      : "translateY(60px) scale(0.95)", // Starting from the top (translateY is negative)
+    config: { tension: 200, friction: 80 }, // tweak for smoothness
+  });
+
   return (
     <>
       {/* PROGRAMMING SKILLS */}
-      <div className="flex flex-col w-full justify-center bg-gray-200 rounded-tr-[200px] rounded-bl-[200px] md:rounded-bl-[100px] lg:rounded-bl-[200px] h-full md:h-full lg:min-h-screen lg:min-h-[500px] md:min-h-[100px] min-h-[700px] py-10 px-10">
+      <div
+        ref={inViewRef}
+        className="flex flex-col w-full justify-center bg-gray-200 rounded-tr-[200px] rounded-bl-[200px] md:rounded-bl-[100px] lg:rounded-bl-[200px] h-full md:h-full lg:min-h-screen lg:min-h-[500px] md:min-h-[100px] min-h-[700px] lg:py-14 py-10 lg:px-16 px-10"
+      >
         <h1 className="text-3xl lg:text-center md:text-center lg:text-3xl md:text-2xl font-bold text-cyan-700 pt-3">
           My Expertise
         </h1>
@@ -337,56 +379,66 @@ function MyExpertise() {
         <div className="flex-1 flex flex-col lg:flex-row md:flex-row pt-10 gap-16">
           {/* Languages */}
           <div className="flex-1 flex flex-col">
-            <p className="text-gray-800 text-center text-opacity-90">
-              Programming Languages
-            </p>
+            <animated.div style={propsFromTop}>
+              <p className="text-gray-800 text-center text-opacity-90">
+                Programming Languages
+              </p>
+            </animated.div>
 
-            <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
-              {languages.map((icon) => (
-                <Tooltip
-                  text={icon.name}
-                  shouldShow={true}
-                  otherClass="text-white font-bold"
-                  description={icon.description}
-                >
-                  <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
-                    <img
-                      src={icon.logo}
-                      alt={icon.name}
-                      className={icon.cssClass}
-                      title={icon.name}
-                    />
-                  </div>
-                </Tooltip>
-              ))}
-            </div>
+            <animated.div style={propsFromTop}>
+              <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
+                {languages.map((icon) => (
+                  <Tooltip
+                    key={icon.name}
+                    text={icon.name}
+                    shouldShow={true}
+                    otherClass="text-white font-bold"
+                    description={icon.description}
+                  >
+                    <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
+                      <img
+                        src={icon.logo}
+                        alt={icon.name}
+                        className={icon.cssClass}
+                        title={icon.name}
+                      />
+                    </div>
+                  </Tooltip>
+                ))}
+              </div>
+            </animated.div>
           </div>
 
           {/* Frameworks */}
           <div className="flex-1 flex flex-col">
-            <p className="text-gray-800 text-center text-opacity-90">
-              Frameworks and Libraries
-            </p>
+            <animated.div style={propsFromTop}>
+              <p className="text-gray-800 text-center text-opacity-90">
+                Frameworks and Libraries
+              </p>
+            </animated.div>
 
-            <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
-              {frameworks.map((icon) => (
-                <Tooltip
-                  text={icon.name}
-                  shouldShow={true}
-                  otherClass="text-white font-bold"
-                  description={icon.description}
-                >
-                  <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
-                    <img
-                      src={icon.logo}
-                      alt={icon.name}
-                      className={icon.cssClass}
-                      title={icon.name}
-                    />
-                  </div>
-                </Tooltip>
-              ))}
-            </div>
+            <animated.div style={propsFromTop}>
+              <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
+                {frameworks.map((icon) => (
+                  <Tooltip
+                    key={icon.name}
+                    text={icon.name}
+                    shouldShow={true}
+                    otherClass="text-white font-bold"
+                    description={icon.description}
+                  >
+                    <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
+                      <img
+                        src={icon.logo}
+                        alt={icon.name}
+                        className={icon.cssClass}
+                        title={icon.name}
+                      />
+                    </div>
+                  </Tooltip>
+                ))}
+              </div>
+            </animated.div>
           </div>
         </div>
 
@@ -394,56 +446,66 @@ function MyExpertise() {
         <div className="flex-1 flex flex-col lg:flex-row md:flex-row pt-10 gap-16">
           {/* Backend Databases */}
           <div className="flex-1 flex flex-col">
-            <p className="text-gray-800 text-center text-opacity-90">
-              Backend Databases
-            </p>
+            <animated.div style={propsFromLeftSide}>
+              <p className="text-gray-800 text-center text-opacity-90">
+                Backend Databases
+              </p>
+            </animated.div>
 
-            <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
-              {dbs.map((icon) => (
-                <Tooltip
-                  text={icon.name}
-                  shouldShow={true}
-                  otherClass="text-white font-bold"
-                  description={icon.description}
-                >
-                  <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
-                    <img
-                      src={icon.logo}
-                      alt={icon.name}
-                      className={icon.cssClass}
-                      title={icon.name}
-                    />
-                  </div>
-                </Tooltip>
-              ))}
-            </div>
+            <animated.div style={propsFromLeftSide}>
+              <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
+                {dbs.map((icon) => (
+                  <Tooltip
+                    key={icon.name}
+                    text={icon.name}
+                    shouldShow={true}
+                    otherClass="text-white font-bold"
+                    description={icon.description}
+                  >
+                    <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
+                      <img
+                        src={icon.logo}
+                        alt={icon.name}
+                        className={icon.cssClass}
+                        title={icon.name}
+                      />
+                    </div>
+                  </Tooltip>
+                ))}
+              </div>
+            </animated.div>
           </div>
 
           {/* Other Services */}
           <div className="flex-1 flex flex-col">
-            <p className="text-gray-800 text-center text-opacity-90">
-              Backend Services, Integration, and Others
-            </p>
+            <animated.div style={propsFromRightSide}>
+              <p className="text-gray-800 text-center text-opacity-90">
+                Backend Services, Integration, and Others
+              </p>
+            </animated.div>
 
-            <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
-              {otherSvcs.map((icon) => (
-                <Tooltip
-                  text={icon.name}
-                  shouldShow={true}
-                  otherClass="text-white font-bold"
-                  description={icon.description}
-                >
-                  <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
-                    <img
-                      src={icon.logo}
-                      alt={icon.name}
-                      className={icon.cssClass}
-                      title={icon.name}
-                    />
-                  </div>
-                </Tooltip>
-              ))}
-            </div>
+            <animated.div style={propsFromRightSide}>
+              <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
+                {otherSvcs.map((icon) => (
+                  <Tooltip
+                    key={icon.name}
+                    text={icon.name}
+                    shouldShow={true}
+                    otherClass="text-white font-bold"
+                    description={icon.description}
+                  >
+                    <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
+                      <img
+                        src={icon.logo}
+                        alt={icon.name}
+                        className={icon.cssClass}
+                        title={icon.name}
+                      />
+                    </div>
+                  </Tooltip>
+                ))}
+              </div>
+            </animated.div>
           </div>
         </div>
 
@@ -451,56 +513,66 @@ function MyExpertise() {
         <div className="flex-1 flex flex-col lg:flex-row md:flex-row pt-10 gap-16">
           {/* Data Science and Analytics */}
           <div className="flex-1 flex flex-col">
-            <p className="text-gray-800 text-center text-opacity-90">
-              Data Science and Analytics
-            </p>
+            <animated.div style={propsFromBottom}>
+              <p className="text-gray-800 text-center text-opacity-90">
+                Data Science and Analytics
+              </p>
+            </animated.div>
 
-            <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
-              {analytics.map((icon) => (
-                <Tooltip
-                  text={icon.name}
-                  shouldShow={true}
-                  otherClass="text-white font-bold"
-                  description={icon.description}
-                >
-                  <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
-                    <img
-                      src={icon.logo}
-                      alt={icon.name}
-                      className={icon.cssClass}
-                      title={icon.name}
-                    />
-                  </div>
-                </Tooltip>
-              ))}
-            </div>
+            <animated.div style={propsFromBottom}>
+              <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
+                {analytics.map((icon) => (
+                  <Tooltip
+                    key={icon.name}
+                    text={icon.name}
+                    shouldShow={true}
+                    otherClass="text-white font-bold"
+                    description={icon.description}
+                  >
+                    <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
+                      <img
+                        src={icon.logo}
+                        alt={icon.name}
+                        className={icon.cssClass}
+                        title={icon.name}
+                      />
+                    </div>
+                  </Tooltip>
+                ))}
+              </div>
+            </animated.div>
           </div>
 
           {/* Automation */}
           <div className="flex-1 flex flex-col">
-            <p className="text-gray-800 text-center text-opacity-90">
-              Automation, Machine Learning, and AI
-            </p>
+            <animated.div style={propsFromBottom}>
+              <p className="text-gray-800 text-center text-opacity-90">
+                Automation, Machine Learning, and AI
+              </p>
+            </animated.div>
 
-            <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
-              {aiauto.map((icon) => (
-                <Tooltip
-                  text={icon.name}
-                  shouldShow={true}
-                  otherClass="text-white font-bold"
-                  description={icon.description}
-                >
-                  <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
-                    <img
-                      src={icon.logo}
-                      alt={icon.name}
-                      className={icon.cssClass}
-                      title={icon.name}
-                    />
-                  </div>
-                </Tooltip>
-              ))}
-            </div>
+            <animated.div style={propsFromBottom}>
+              <div className="flex-1 flex flex-wrap justify-center pt-10 gap-x-8 gap-y-2">
+                {aiauto.map((icon) => (
+                  <Tooltip
+                    key={icon.name}
+                    text={icon.name}
+                    shouldShow={true}
+                    otherClass="text-white font-bold"
+                    description={icon.description}
+                  >
+                    <div className="hover:drop-shadow-xl transition-all duration-500 ease-in-out">
+                      <img
+                        src={icon.logo}
+                        alt={icon.name}
+                        className={icon.cssClass}
+                        title={icon.name}
+                      />
+                    </div>
+                  </Tooltip>
+                ))}
+              </div>
+            </animated.div>
           </div>
         </div>
       </div>

@@ -1,6 +1,10 @@
 import FrontImage from "../assets/imgs/front-blob.png";
 import EducationImage from "../assets/imgs/education.png";
 import MyExpertise from "./MyExpertise";
+import { useSpring, animated } from "@react-spring/web";
+import { useInView } from "react-intersection-observer";
+
+import cv from "../assets/others/cv.pdf";
 // import { useFrame } from "@react-three/fiber";
 // import { useGLTF } from "@react-three/drei";
 // import React, { useRef } from "react";
@@ -62,53 +66,129 @@ function Landing() {
   //   ) : null;
   // };
 
+  const [inViewRef, inView] = useInView({
+    triggerOnce: true, // Trigger the animation once when the element enters view
+    threshold: 0.1, // Start triggering the animation when 30% of the element is in view
+  });
+
+  // setup animation on load
+  const propsOnLoadFromTop = useSpring({
+    opacity: 1, // Fade in when in view
+    transform: "translateY(0) scale(1)",
+    from: { opacity: 0, transform: "translateY(-60px) scale(1)" },
+    config: { tension: 180, friction: 50 },
+  });
+
+  const propsOnLoadFromRightSide = useSpring({
+    opacity: 1,
+    transform: "translateX(0) scale(1)",
+    from: { opacity: 0, transform: "translateX(60px) scale(0.95)" },
+    config: { tension: 200, friction: 80, delay: 260 }, // tweak for smoothness
+  });
+
+  const propsOnLoadFromLeftSide = useSpring({
+    opacity: 1,
+    transform: "translateX(0) scale(1)",
+    from: { opacity: 0, transform: "translateX(-60px) scale(0.95)" },
+    config: { tension: 200, friction: 80, delay: 200 },
+  });
+
+  const propsOnLoadFromBottom = useSpring({
+    opacity: 1,
+    transform: "translateY(0) scale(1)",
+    from: { opacity: 0, transform: "translateY(60px) scale(0.95)" },
+    config: { tension: 200, friction: 80, delay: 350 }, // tweak for smoothness
+  });
+
+  // setup animation for on view
+  const propsFromTop = useSpring({
+    opacity: inView ? 1 : 0, // Fade in when in view
+    transform: inView ? "translateY(0) scale(1)" : "translateY(-60px) scale(1)",
+    config: { tension: 180, friction: 50 },
+  });
+
+  const propsFromRightSide = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView
+      ? "translateX(0) scale(1)"
+      : "translateX(60px) scale(0.95)",
+    config: { tension: 200, friction: 80, delay: 260 }, // tweak for smoothness
+  });
+
+  const propsFromLeftSide = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView
+      ? "translateX(0) scale(1)"
+      : "translateX(-60px) scale(0.95)",
+    config: { tension: 200, friction: 80, delay: 200 },
+  });
+
+  const propsFromBottom = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView
+      ? "translateY(0) scale(1)"
+      : "translateY(60px) scale(0.95)", // Starting from the top (translateY is negative)
+    config: { tension: 200, friction: 80, delay: 350 }, // tweak for smoothness
+  });
+
   return (
     <>
       {/* TOP */}
       <div className="h-full lg:h-screen lg:min-h-[700px] md:h-screen md:min-h-[740px] flex flex-col md:flex-row lg:flex-row">
         <div className="flex-none flex items-center w-screen md:w-6/12 lg:w-5/12 px-2 md:px-5 lg:px-12">
-          <img src={FrontImage} alt="" className="w-screen" />
+          <animated.div style={propsOnLoadFromLeftSide}>
+            <img src={FrontImage} alt="" className="w-screen" />
+          </animated.div>
         </div>
 
         <div className="flex-1 h-full px-10 md:px-5 lg:px-12 py-4">
           <div className="flex h-full flex-col justify-center">
-            <h1 className="text-l lg:text-2xl md:text-2xl font-bold text-white pt-5">
-              Hi, I'm a
-            </h1>
-            <h1 className="text-4xl lg:text-7xl md:text-6xl font-bold text-white pt-3">
-              <span className="text-cyan-300">Full-Stack</span>
-            </h1>
-            <h1 className="text-5xl lg:text-7xl md:text-6xl font-bold text-white">
-              Software Engineer
-            </h1>
+            <animated.div style={propsOnLoadFromTop}>
+              <h1 className="text-l lg:text-2xl md:text-2xl font-bold text-white pt-5">
+                Hi, I'm a
+              </h1>
 
-            <p className="pt-4 text-white text-opacity-75">
-              With 9+ years of experience in Web, Android, API Integration,
-              Desktop application development, and Data Analytics. Skilled in
-              database management, including MS SQL Server, MySQL, PostgreSQL,
-              and Oracle, with 7+ years managing SQL databases with replication
-              to enhance data integrity and redundancy. Proven success in
-              delivering quality solutions for local and international
-              enterprises.
-            </p>
-            <p className="pt-3 text-white text-opacity-75">
-              Currently based in the Philippines. Available to relocate to any
-              country immediately if necessary.
-            </p>
+              <h1 className="text-4xl lg:text-7xl md:text-6xl font-bold text-white pt-3">
+                <span className="text-cyan-300">Full-Stack</span>
+              </h1>
+              <h1 className="text-5xl lg:text-7xl md:text-6xl font-bold text-white">
+                Software Engineer
+              </h1>
+            </animated.div>
+
+            <animated.div style={propsOnLoadFromRightSide}>
+              <p className="pt-4 text-white text-opacity-75">
+                With 9+ years of experience in Web, Android, API Integration,
+                Desktop application development, and Data Analytics. Skilled in
+                database management, including MS SQL Server, MySQL, PostgreSQL,
+                and Oracle, with 7+ years managing SQL databases with
+                replication to enhance data integrity and redundancy. Proven
+                success in delivering quality solutions for local and
+                international enterprises.
+              </p>
+
+              <p className="pt-3 text-white text-opacity-75">
+                Currently based in the Philippines. Available to relocate to any
+                country immediately if necessary.
+              </p>
+            </animated.div>
 
             <div className="flex flex-row pt-5">
-              <a
-                className="bg-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-700"
-                href="#"
-              >
-                Hire Me
-              </a>
-              <a
-                className="ml-3 border-2 border-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-600"
-                href="#"
-              >
-                Dowload CV
-              </a>
+              <animated.div style={propsOnLoadFromBottom}>
+                <a
+                  className="bg-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-700"
+                  href="#"
+                >
+                  Hire Me
+                </a>
+                <a
+                  className="ml-3 border-2 border-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-600"
+                  href={cv}
+                  target="_blank"
+                >
+                  Dowload CV
+                </a>
+              </animated.div>
             </div>
           </div>
         </div>
@@ -120,55 +200,54 @@ function Landing() {
       {/* INSTITUTIONAL BACKGROUND */}
 
       <div className="h-full lg:h-screen lg:min-h-[700px] md:h-screen md:min-h-[740px] flex flex-col md:flex-row lg:flex-row">
-        <div className="flex-1 h-full px-10 md:px-5 lg:px-12 py-4">
+        <div
+          ref={inViewRef}
+          className="flex-1 h-full px-10 md:px-5 lg:px-12 py-4"
+        >
           <div className="flex h-full flex-col justify-center">
-            <h1 className="text-l lg:text-2xl md:text-2xl font-bold text-white pt-5">
-              I'm a graduate of
-            </h1>
-            <h1 className="text-4xl lg:text-7xl md:text-6xl font-bold text-white pt-3">
-              <span className="text-cyan-300">Bachelor of Science in</span>
-            </h1>
-            <h1 className="text-5xl lg:text-7xl md:text-6xl font-bold text-white">
-              Information Technology
-            </h1>
+            <animated.div style={propsFromTop}>
+              <h1 className="text-l lg:text-2xl md:text-2xl font-bold text-white pt-5">
+                I'm a graduate of
+              </h1>
+              <h1 className="text-4xl lg:text-7xl md:text-6xl font-bold text-white pt-3">
+                <span className="text-cyan-300">Bachelor of Science in</span>
+              </h1>
+              <h1 className="text-5xl lg:text-7xl md:text-6xl font-bold text-white">
+                Information Technology
+              </h1>
+            </animated.div>
 
-            <p className="pt-4 text-white text-opacity-75">
-              Started my college degree at Mater Dei College, Tubigon, Bohol, in
-              June of 2013. In my college days, I have already started my
-              software development career through freelancing. With both local
-              and international clients and employers, I have honed my coding
-              skills at an early age.
-            </p>
-            <p className="pt-3 text-white text-opacity-75">
-              I graduated in the same school in March 2017 with a
-              <strong> "Best in Computer Programming"</strong> award.
-            </p>
-
-            {/* <div className="flex flex-row pt-5">
-              <a
-                className="bg-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-700"
-                href="#"
-              >
-                Hire Me
-              </a>
-              <a
-                className="ml-3 border-2 border-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-600"
-                href="#"
-              >
-                Dowload CV
-              </a>
-            </div> */}
+            <animated.div style={propsFromLeftSide}>
+              <p className="pt-4 text-white text-opacity-75">
+                Started my college degree at Mater Dei College, Tubigon, Bohol,
+                in June of 2013. In my college days, I have already started my
+                software development career through freelancing. With both local
+                and international clients and employers, I have honed my coding
+                skills at an early age.
+              </p>
+            </animated.div>
+            <animated.div style={propsFromBottom}>
+              <p className="pt-3 text-white text-opacity-75">
+                I graduated in the same school in March 2017 with a
+                <strong> "Best in Computer Programming"</strong> award.
+              </p>
+            </animated.div>
           </div>
         </div>
 
         <div className="flex-none flex items-center w-screen md:w-6/12 lg:w-5/12 px-2 md:px-5 lg:px-12">
-          <img src={EducationImage} alt="" className="w-screen" />
+          <animated.div style={propsFromRightSide}>
+            <img src={EducationImage} alt="" className="w-screen" />
+          </animated.div>
         </div>
       </div>
 
       {/* VFX */}
       <div className="flex items-center justify-center">
-        <div className="relative overflow-hidden bg-black rounded-tr-[200px] rounded-bl-[200px] md:rounded-bl-[100px] lg:rounded-bl-[200px] h-full lg:h-screen md:h-screen lg:min-h-[500px] md:h-screen md:min-h-[100px] min-h-[700px] py-3">
+        <div
+          ref={inViewRef}
+          className="relative overflow-hidden bg-black rounded-tr-[200px] rounded-bl-[200px] md:rounded-bl-[100px] lg:rounded-bl-[200px] h-full lg:h-screen md:h-screen lg:min-h-[500px] md:h-screen md:min-h-[100px] min-h-[700px] py-3"
+        >
           <video
             className="absolute top-0 left-0 w-full h-full object-cover opacity-50"
             src="/vfx/pf-bg.mp4" // Update the path to your video
@@ -180,43 +259,52 @@ function Landing() {
           <div className="relative z-10 flex h-full flex-col md:flex-row lg:flex-row">
             <div className="flex-1 h-full px-10 md:px-5 lg:px-12 py-4">
               <div className="flex h-full flex-col justify-center">
-                <h1 className="text-l lg:text-2xl md:text-2xl font-bold text-white pt-5">
-                  I'm also a
-                </h1>
-                <h1 className="text-5xl lg:text-7xl md:text-6xl font-bold text-white pt-3">
-                  <span className="text-cyan-300">CGI & VFX</span>
-                </h1>
-                <h1 className="text-4xl lg:text-7xl md:text-6xl font-bold text-white">
-                  Artist
-                </h1>
+                <animated.div style={propsFromTop}>
+                  <h1 className="text-l lg:text-2xl md:text-2xl font-bold text-white pt-5">
+                    I'm also a
+                  </h1>
+                  <h1 className="text-5xl lg:text-7xl md:text-6xl font-bold text-white pt-3">
+                    <span className="text-cyan-300">CGI & VFX</span>
+                  </h1>
+                  <h1 className="text-4xl lg:text-7xl md:text-6xl font-bold text-white">
+                    Artist
+                  </h1>
+                </animated.div>
 
-                <p className="pt-4 text-white">
-                  With 7+ years of experience in 3D modeling, sculpting,
-                  rigging, texturing, and animation in Blender, Substance
-                  Painter, ZBrush, and Maya, and 6+ years of experience in
-                  visual effects with Blender, Houdini, Cinema4D, and Adobe
-                  After Effects. Worked with several local and international
-                  companies in creating artistic and realistic CGI
-                  advertisements, short clips, and even movies.
-                </p>
-                <p className="pt-3 text-white">
-                  I have established my fanbase in <strong>TikTok</strong>,
-                  which gained me millions of views and likes.
-                </p>
+                <animated.div style={propsFromLeftSide}>
+                  <p className="pt-4 text-white">
+                    With 7+ years of experience in 3D modeling, sculpting,
+                    rigging, texturing, and animation in Blender, Substance
+                    Painter, ZBrush, and Maya, and 6+ years of experience in
+                    visual effects with Blender, Houdini, Cinema4D, and Adobe
+                    After Effects. Worked with several local and international
+                    companies in creating artistic and realistic CGI
+                    advertisements, short clips, and even movies.
+                  </p>
+                </animated.div>
+
+                <animated.div style={propsFromBottom}>
+                  <p className="pt-3 text-white">
+                    I have established my fanbase in <strong>TikTok</strong>,
+                    which gained me millions of views and likes.
+                  </p>
+                </animated.div>
 
                 <div className="flex flex-row pt-5 justify-end">
-                  <a
-                    className="bg-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-700"
-                    href="#"
-                  >
-                    Commission Me
-                  </a>
-                  <a
-                    className="ml-3 border-2 border-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-600"
-                    href="#"
-                  >
-                    View VFX Portfolio
-                  </a>
+                  <animated.div style={propsFromRightSide}>
+                    <a
+                      className="bg-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-700"
+                      href="#"
+                    >
+                      Commission Me
+                    </a>
+                    <a
+                      className="ml-3 border-2 border-cyan-600 text-white px-5 py-3 rounded-lg transition-all hover:bg-cyan-600"
+                      href="#"
+                    >
+                      View VFX Portfolio
+                    </a>
+                  </animated.div>
                 </div>
               </div>
             </div>
