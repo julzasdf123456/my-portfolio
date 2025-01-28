@@ -7,6 +7,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import SoftwareDevelopment from "./components/SoftwareDevelopment";
+import CgiAndVfx from "./components/CgiAndVfx";
+import Contact from "./components/Contact";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             />
             {/* Redirect example */}
             <Route path="/home" element={<Navigate to="/" replace />} />
+            <Route path="/cgi" element={<CgiAndVfx />} />
+            <Route path="/contact" element={<Contact />} />
             {/* Catch-all route for 404 */}
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>

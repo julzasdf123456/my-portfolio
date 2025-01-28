@@ -36,40 +36,50 @@ function TopNav() {
         >
           <ul className="p-4 space-y-4">
             <li>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-500"
+              <Link
+                to="/"
+                className={`px-4 ${
+                  isActive("/") ? "border-l-2 border-purple-900" : ""
+                }`}
                 onClick={closeDrawer}
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-500"
+              <Link
+                to="/software-development"
+                className={`px-4 ${
+                  isActive("/software-development")
+                    ? "border-l-2 border-purple-900"
+                    : ""
+                }`}
                 onClick={closeDrawer}
               >
-                Software Development
-              </a>
+                Software Projects
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-500"
+              <Link
+                to="/cgi"
+                className={`px-4 ${
+                  isActive("/cgi") ? "border-l-2 border-purple-900" : ""
+                }`}
                 onClick={closeDrawer}
               >
                 CGI & VFX
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-500"
+              <Link
+                to="/contact"
+                className={`px-4 ${
+                  isActive("/contact") ? "border-l-2 border-purple-900" : ""
+                }`}
                 onClick={closeDrawer}
               >
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
