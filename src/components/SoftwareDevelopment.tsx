@@ -7,6 +7,11 @@ import batchEduPromo from "../assets/imgs/batch/promo1.png";
 import batchIDPromo from "../assets/imgs/batch/promo-batch.png";
 import batchEDMSPromo from "../assets/imgs/edms/promo-edms.png";
 
+import blci from "../assets/imgs/clients/blci.webp";
+import boheco1 from "../assets/imgs/clients/boheco1.png";
+import hca from "../assets/imgs/clients/hca.png";
+import svi from "../assets/imgs/clients/svi.png";
+
 interface Card {
   id: number;
   img: string;
@@ -61,15 +66,15 @@ function SoftwareDevelopment() {
       exerpt:
         "An ID system that integrates with Batch.edu or the EMS. This system can scan Barcodes, QR Codes, and RFID, through dedicated scanning devices. The kiosk (machine itself), which is also part of the system, and is mainly a DIY project composed of a modular mini-PC and a thin monitor slapped into a custom-fabricated standee. The system runs on Dart (Flutter), which connects to the Laravel backend of the Batch.edu or the EMS.",
     },
-    {
-      id: 5,
-      img: "null",
-      title: "Card 5",
-      description: "This is card 5",
-      blue: "",
-      white: "",
-      exerpt: "",
-    },
+    // {
+    //   id: 5,
+    //   img: "null",
+    //   title: "Card 5",
+    //   description: "This is card 5",
+    //   blue: "",
+    //   white: "",
+    //   exerpt: "",
+    // },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0); // Index of the first visible card
@@ -287,6 +292,13 @@ function SoftwareDevelopment() {
         <h1 className="text-3xl lg:text-center md:text-center lg:text-3xl md:text-2xl font-bold text-cyan-700 pt-3">
           Clients
         </h1>
+
+        <div className="flex flex-wrap justify-center pt-10 gap-x-20 gap-y-2">
+          <img src={blci} className="lg:h-[90px] md:h-[70px] h-[60px]" />
+          <img src={boheco1} className="lg:h-[95px] md:h-[70px] h-[60px]" />
+          <img src={hca} className="lg:h-[98px] md:h-[70px] h-[60px]" />
+          <img src={svi} className="lg:h-[90px] md:h-[70px] h-[60px]" />
+        </div>
       </div>
     </>
   );
